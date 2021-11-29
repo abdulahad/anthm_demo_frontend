@@ -40,10 +40,13 @@
   margin: 20px 0px;
 }
 .nav-link{
-  color: #ccc !important;
-  font-weight: bold;
-  border-left:1px solid;
+  color: #222 !important;
+  border-left:1px solid #ccc;
 }
 .nav-link:last-child{
-  border-right:1px solid;
+  border-right:0px solid #ccc;
+}
+
+.nav-link:first-child{
+  border-left:0px solid #ccc;
 }

@@ -7,8 +7,12 @@ const header = {
   "Content-Type": "application/json",
 };
 
-export const getEmployees = async () => {
-  const data = await apiFetch(URI + "/employees", "GET", header);
+export const getEmployees = async (pageNumber) => {
+  let URI_Query = "/employees";
+  if(pageNumber && !isNaN(pageNumber)){
+    URI_Query = "/employees?pageNumber="+pageNumber;
+  }
+  const data = await apiFetch(URI + URI_Query, "GET", header);
   console.log(data);
   return data;
 };

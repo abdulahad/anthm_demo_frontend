@@ -1,12 +1,14 @@
-import { Table, Form, Row, Col, Button } from "react-bootstrap";
+import { Table, Form, Row, Col } from "react-bootstrap";
 import { useState, useEffect, useContext } from "react";
+import Pagination from "react-bootstrap/Pagination";
+
 import { Context, Actions } from "../store";
 import { getEmployees, searchEmployees } from "../store/api/EmployeeAPI";
+import EmployeeSearch from "./EmployeeSearch";
 function EmployeeList() {
   const { store, dispatch } = useContext(Context);
   const { employees } = store;
   const [keywords, setKeywords] = useState("");
-  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -16,14 +18,18 @@ function EmployeeList() {
     searchEmployees(keywords).then((data) => {
       dispatch({ type: Actions.FETCH_EMPLOYEES_DATA, payload: data });
     });
-
-    setValidated(true);
     event.preventDefault();
   };
 
-  useEffect(async () => {
-    let data = await getEmployees();
+  const NavigateToPage = async function (page) {
+    let data = await getEmployees(page);
     dispatch({ type: Actions.FETCH_EMPLOYEES_DATA, payload: data });
+  };
+
+  useEffect(async () => {
+    await NavigateToPage(0);
+    // let data = await getEmployees();
+    // dispatch({ type: Actions.FETCH_EMPLOYEES_DATA, payload: data });
   }, []);
 
   return (
@@ -33,33 +39,10 @@ function EmployeeList() {
           <h2>Employees List</h2>
         </Col>
       </Row>
+      <EmployeeSearch searchHandler={handleSubmit} setKeywords={setKeywords}/>
       <Row>
         <Col>
-          <Form
-            id="searchForm"
-            noValidate
-            validated={validated}
-            onSubmit={handleSubmit}
-          >
-            <Row>
-              <Col>
-                <Form.Control
-                  required
-                  placeholder="Enter keywords (Software Engineer, John,...)"
-                  name="keywords"
-                  value={keywords}
-                  onChange={(e) => setKeywords(e.target.value)}
-                />
-              </Col>
-              <Col>
-                <Button type="submit">Search</Button>
-              </Col>
-            </Row>
-          </Form>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+          <Col>Total number of employees: {employees.totalElements}</Col>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -92,6 +75,29 @@ function EmployeeList() {
                 : null}
             </tbody>
           </Table>
+          {employees && employees.content ? (
+            <Pagination>
+              <Pagination.First
+                disabled={employees.first}
+                onClick={() => NavigateToPage(0)}
+              />
+              <Pagination.Prev
+                disabled={employees.first}
+                onClick={() => NavigateToPage(employees.number - 1)}
+              />
+              <Pagination.Item disabled>
+                Page: {employees.number + 1 + " of " + employees.totalPages}
+              </Pagination.Item>
+              <Pagination.Next
+                disabled={employees.last}
+                onClick={() => NavigateToPage(employees.number + 1)}
+              />
+              <Pagination.Last
+                disabled={employees.last}
+                onClick={() => NavigateToPage(employees.totalPages-1)}
+              />
+            </Pagination>
+          ) : null}
         </Col>
       </Row>
     </>
