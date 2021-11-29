@@ -51,7 +51,7 @@ function EmployeeForm() {
         onSubmit={handleSubmit}
       >
         <Form.Group className="mb-3" controlId="employeeFirstName">
-          <Form.Label>First name</Form.Label>
+          <Form.Label>First name *</Form.Label>
           <Form.Control
             required
             type="text"
@@ -64,7 +64,7 @@ function EmployeeForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="employeeLastName">
-          <Form.Label>Last name</Form.Label>
+          <Form.Label>Last name *</Form.Label>
           <Form.Control
             required
             type="text"
@@ -77,7 +77,7 @@ function EmployeeForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="employeeEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Email *</Form.Label>
           <Form.Control
             name="email"
             required
@@ -102,7 +102,7 @@ function EmployeeForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="employeeDesignation">
-          <Form.Label>Designation</Form.Label>
+          <Form.Label>Designation *</Form.Label>
           <Form.Control
             required
             type="text"
@@ -115,7 +115,7 @@ function EmployeeForm() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formPhoneNumber">
-          <Form.Label>Phone Number</Form.Label>
+          <Form.Label>Phone Number *</Form.Label>
           <Form.Control
             name="phone"
             type="tel"

@@ -12,6 +12,7 @@ import EmployeeList from "./Employee/EmployeeList";
 
 // - Store
 import { Context, initialState, reducer } from "./store";
+import Navigation from "./Navigation";
 
 function App() {
   const [store, dispatch] = useReducer(reducer, initialState);
@@ -20,22 +21,7 @@ function App() {
     <Context.Provider value={{ store, dispatch }}>
       <Router>
         <Container>
-          <Row>
-            <Col>
-              <Navbar bg="dark"  variant="dark" expand="lg">
-                <Container>
-                  <Navbar.Brand href="/">Anthm Demo Project</Navbar.Brand>
-                  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                  <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                      <Nav.Link href="/">Employees List</Nav.Link>
-                      <Nav.Link href="/create">Create Employees</Nav.Link>
-                    </Nav>
-                  </Navbar.Collapse>
-                </Container>
-              </Navbar>
-            </Col>
-          </Row>
+          <Navigation />
           <Row>
             <Col>
               <Routes>
